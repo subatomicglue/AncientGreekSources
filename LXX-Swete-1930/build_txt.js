@@ -156,10 +156,47 @@ let current = {
   book_base: undefined,
   book_abv: undefined,
 }
+// table of contents
+console.log( `Table Of Contents` );
 for (let i = 0; i < versification.length; i++) {
   let r = versification[i];
   let r2 = versification[i+1] ? versification[i+1] : [undefined, undefined];
   let verse = r[1].match( /([^\.]+)\.([0-9]+):([0-9]+)/ )
+  let first_word = r[0]
+  let last_word = r2[0] ? r2[0] - 1 : word_with_punctuations.length - 1
+  let book_abv = `${verse[1]}` // 3 letter abbreviation
+  //let book_base = `${section_lookup[book_abv] ? section_lookup[book_abv][1] : book_abv}`
+  let book_base = `${section_lookup[book_abv] ? section_lookup[book_abv][0] : book_abv}`
+  let book = `${book_base} ${verse[2]}`
+
+  if (current.book_base != book_base) {
+    console.log( `  ${book_base}` );
+  }
+  //if (current.book != book) {
+  //  console.log( `  ${book}` );
+  //}
+  current.book = book;
+  current.book_base = book_base;
+  current.book_abv = book_abv;
+}
+current = {
+  book: undefined,
+  book_base: undefined,
+  book_abv: undefined,
+  sentence: undefined,
+}
+//let sentence = 1;
+let skipwords = {
+  '⸆': true,     // U+2E06 RAISED INTERPOLATION MARKER - another version has additional text
+  '⸂⸆⸃': true   // ??
+}
+// books
+for (let i = 0; i < versification.length; i++) {
+  let r = versification[i];
+  let r2 = versification[i+1] ? versification[i+1] : [undefined, undefined];
+  let verse = r[1].match( /([^\.]+)\.([0-9]+):([0-9]+)/ )
+  let verse_book = verse[2];
+  let verse_sentence = verse[3];
   //console.log( verse[1], ":", verse[2], ":", verse[3] );
   //process.exit(-1)
 
@@ -170,17 +207,40 @@ for (let i = 0; i < versification.length; i++) {
   let book_base = `${section_lookup[book_abv] ? section_lookup[book_abv][0] : book_abv}`
   let book = `${book_base} ${verse[2]}`
 
+  if (current.book_base != book_base) {
+    console.log( "" );
+    console.log( "" );
+    console.log( "" );
+    console.log( "" );
+    console.log( `-=[ ${book_base} ]=-` );
+  }
   if (current.book != book) {
     console.log( "" );
-    console.log( "====================" );
-    console.log( book );
-    console.log( "====================" );
+    console.log( "" );
+    console.log( `${verse[2]}` );
+    sentence = 1; // goes back to one when the book changes (e.g. Genesis 1 to Genesis 2)
   }
   current.book = book;
   current.book_base = book_base;
   current.book_abv = book_abv;
 
-  console.log( word_with_punctuations.slice(first_word, last_word).map( r => r[1] ).join( " " ) );
+  // output one sentence from [first_word..last_word]
+  for (let w = first_word; w < last_word; ++w) {
+    if (skipwords[word_with_punctuations[w][1]])
+      continue
+
+    if (current.sentence != verse_sentence) {
+      process.stdout.write( `${1 < verse_sentence ? "  " : ""}${verse_sentence}. ` )
+    }
+    current.sentence = verse_sentence;
+
+    //console.log( word_with_punctuations.slice(first_word, last_word).map( r => r[1] ).join( " " ) );
+    process.stdout.write( `${first_word < w ? " " : ""}${word_with_punctuations[w][1]}` )
+
+    //if (word_with_punctuations[w][1].match( /\.$/ )) {
+    //  sentence++;
+    //}
+  }
 }
 
 
