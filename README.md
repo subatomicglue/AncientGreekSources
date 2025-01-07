@@ -11,6 +11,6 @@ Growing List I'll be adding to:
 
 - [Greek New Testament - Nestle 1904 BFBS](Nestle1904)
   - Biblio:  "Greek New Testament, edited by Eberhard Nestle, published in 1904 by the British and Foreign Bible Society"
-  - transcribed by [Diego Renato dos Santos](https://github.com/biblicalhumanities/Nestle1904)
+  - transcribed by [Diego Renato dos Santos](https://sites.google.com/site/nestle1904/)
   - Source: [GitHub](https://github.com/biblicalhumanities/Nestle1904) [BibleHub](https://biblehub.com/nestle/matthew/1.htm)
   - [Full Text](Nestle1904.txt)
