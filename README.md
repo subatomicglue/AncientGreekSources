@@ -5,7 +5,7 @@ Original text/unicode sources of ancient classics documents, for classical philo
 Growing List I'll be adding to:
 
 - [Greek Old Testament - Septuagint LXX - Swete 1930](LXX-Swete-1930)
-  - Biblio:  "THE OLD TESTAMENT IN GREEK ACCORDING TO THE SEPTUAGINT edited by HENRY BARCLAY SWETE D.D."
+  - Biblio:  "THE OLD TESTAMENT IN GREEK ACCORDING TO THE SEPTUAGINT edited by HENRY BARCLAY SWETE D.D.  published in 1930"
   - Source: [GitHub](https://github.com/eliranwong/LXX-Swete-1930) [BibleHub](https://biblehub.com/sepd/genesis/1.htm)
   - [Full Text](LXX-Swete-1930.txt)
 
