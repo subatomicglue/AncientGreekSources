@@ -11,11 +11,12 @@ toc = parseXml( toc );
 
 toc = toc.children[0].children.map( (r,i) => r.name == "xi:include" ? r.attributes.href : "" ).filter( r => r == "" ? false : true );
 
-
+// output the text for one book (e.g. matthew)
 function parseBook( xmlFileName, bookName ) {
   let txt = ""
   let title = ""
 
+  // each type of XML node outputs adds different text to the 'txt' output:
   function parseNode( n ) {
     if (n.name == "title" && n.attributes.type == "main") {
       txt += "\n\n\n\n" + "-=[ " + n.text + ` (${bookName}) ` + " ]=-" + "\n";
@@ -25,12 +26,15 @@ function parseBook( xmlFileName, bookName ) {
     }
     else if (n.name == "milestone" && n.attributes.unit=="tc" && (n.attributes.type=="start" || n.attributes.type=="end"))
       txt += n.attributes.display
-    else if (n.name == "milestone" && n.attributes.id)
-      txt += n.attributes.id ? n.attributes.id.match( /[0-9]+$/ )[0]  + "." : ""
+    else if (n.name == "milestone" && n.attributes.id) {
+      let number = n.attributes.id.match( /[0-9]+$/ )[0];
+      txt += `${number != '1' ? ".  " : ""}${number}.`
+    }
     else if (n.name == "w")
       txt += " " + n.text
   }
 
+  // in-order node traversal of given xml tree (obtained from parseXml( xmlData ))
   function parseTraverse( n ) {
     if (n)
       parseNode( n )
@@ -40,23 +44,31 @@ function parseBook( xmlFileName, bookName ) {
         parseTraverse( child )
   }
 
+  // read the xml file
   let bookXml = fs.readFileSync( xmlFileName, { encoding: 'utf8', flag: 'r' } );
+
+  // parse it into xml tree
   let book = parseXml( bookXml );
+
+  // do a in-order node traversal on that xml tree
   parseTraverse( book );
   return txt
 }
 
-
+// output the TOC
 let fulltext = "";
 fulltext += "Table Of Contents\n"
 for (let bookFileName of toc) {
   let xmlFileName = `xml/${bookFileName}`;
-  fulltext += "  " + bookFileName.match( /^[^.]+/ )[0] + "\n";
+  let bookname = bookFileName.match( /^[^.]+/ )[0].split("-")[1]
+  fulltext += "  " + bookname + "\n";
 }
 fulltext += "\n"
+// output the books
 for (let bookFileName of toc) {
   let xmlFileName = `xml/${bookFileName}`;
-  fulltext += parseBook( xmlFileName, bookFileName.match( /^[^.]+/ )[0] );
+  let bookname = bookFileName.match( /^[^.]+/ )[0].split("-")[1]
+  fulltext += parseBook( xmlFileName, bookname );
 }
 
 console.log( fulltext );
