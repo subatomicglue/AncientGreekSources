@@ -1,6 +1,6 @@
 # Ancient Greek Sources
 
-Original text/unicode sources of ancient classics documents, for classical philology research, greek language study, etc.
+Original text/unicode sources of ancient Greek classics documents, for classical philology research, greek language study, etc.
 
 Growing List I'll be adding to:
 
