@@ -2,6 +2,10 @@
 
 const fs = require('fs');
 
+// pass 1 arg "html" or "txt" to this script
+if (process.argv.length != 3) process.exit(-1)
+const [html_or_txt] = process.argv.slice(2);
+
 /**
  * Parses a single row of a tab-delimited CSV file, respecting quoted fields.
  * @param {string} row - A single row from the CSV file.
@@ -156,8 +160,66 @@ let current = {
   book_base: undefined,
   book_abv: undefined,
 }
+
+if (html_or_txt == "html") {
+  console.log( `<style>
+@media print {
+  @page {
+    size: letter;
+    margin: 0.75in;
+  }
+
+  body {
+    font-family: Georgia, serif;
+    font-size: 11pt;
+    line-height: 1.5;
+    color: black;
+    background: white;
+  }
+
+  h1, h2 {
+    break-before: page;
+    page-break-before: always;
+    break-after: avoid;
+  }
+
+  h1:first-child {
+    break-before: auto;
+    page-break-before: auto;
+  }
+
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+
+  img, table, blockquote, pre {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  h1, h2 {
+    text-align: center;
+  }
+  h1 {
+    height: 9.5in; /* Letter page height minus 0.75in margins */
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    break-after: page;
+    page-break-after: always;
+  }
+}
+</style>
+` )
+}
+
 // table of contents
-console.log( `Table Of Contents` );
+html_or_txt == "html" ?
+  console.log( `<h1>Septuagint LXX (Swete1930)</h1>\n\n<h2>Table Of Contents</h2>\n<ul>` ) :
+  console.log( `Septuagint LXX (Swete1930)\n\n\nTable Of Contents` )
 for (let i = 0; i < versification.length; i++) {
   let r = versification[i];
   let r2 = versification[i+1] ? versification[i+1] : [undefined, undefined];
@@ -170,7 +232,9 @@ for (let i = 0; i < versification.length; i++) {
   let book = `${book_base} ${verse[2]}`
 
   if (current.book_base != book_base) {
-    console.log( `  ${book_base}` );
+    html_or_txt == "html" ?
+      console.log( `  <li>${book_base}</li>` ) :
+      console.log( `  ${book_base}` )
   }
   //if (current.book != book) {
   //  console.log( `  ${book}` );
@@ -179,6 +243,9 @@ for (let i = 0; i < versification.length; i++) {
   current.book_base = book_base;
   current.book_abv = book_abv;
 }
+html_or_txt == "html" ?
+  console.log( `</ul>` ) :
+  console.log( `` )
 current = {
   book: undefined,
   book_base: undefined,
@@ -212,12 +279,16 @@ for (let i = 0; i < versification.length; i++) {
     console.log( "" );
     console.log( "" );
     console.log( "" );
-    console.log( `-=[ ${book_base} ]=-` );
+    html_or_txt == "html" ?
+      console.log( `<h2>${book_base}</h2>` ) :
+      console.log( `-=[ ${book_base} ]=-` )
   }
   if (current.book != book) {
     console.log( "" );
     console.log( "" );
-    console.log( `${verse[2]}` );
+    html_or_txt == "html" ?
+      process.stdout.write( `${current.book != undefined ? "</p>" : ""}<h3>${verse[2]}</h3>\n<p>` ) :
+      process.stdout.write( `${verse[2]}\n` );
     sentence = 1; // goes back to one when the book changes (e.g. Genesis 1 to Genesis 2)
   }
   current.book = book;
@@ -230,7 +301,9 @@ for (let i = 0; i < versification.length; i++) {
       continue
 
     if (current.sentence != verse_sentence) {
-      process.stdout.write( `${1 < verse_sentence ? "  " : ""}${verse_sentence}. ` )
+      html_or_txt == "html" ?
+        process.stdout.write( `${1 < verse_sentence ? "  <strong>" : "<strong>"}${verse_sentence}.</strong> ` ) :
+        process.stdout.write( `${1 < verse_sentence ? "  " : ""}${verse_sentence}. ` )
     }
     current.sentence = verse_sentence;
 
