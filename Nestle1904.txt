@@ -1,31 +1,33 @@
+Greek New Testament (Nestle1904)
+
 Table Of Contents
-  matthew
-  mark
-  luke
-  john
-  acts
-  romans
-  1corinthians
-  2corinthians
-  galatians
-  ephesians
-  philippians
-  colossians
-  1thessalonians
-  2thessalonians
-  1timothy
-  2timothy
-  titus
-  philemon
-  hebrews
-  james
-  1peter
-  2peter
-  1john
-  2john
-  3john
-  jude
-  revelation
+  ΚΑΤΑ ΜΑΘΘΑΙΟΝ - matthew
+  ΚΑΤΑ ΜΑΡΚΟΝ - mark
+  ΚΑΤΑ ΛΟΥΚΑΝ - luke
+  ΚΑΤΑ ΙΩΑΝΗΝ - john
+  ΠΡΑΞΕΙΣ ΑΠΟΣΤΟΛΩΝ - acts
+  ΠΡΟΣ ΡΩΜΑΙΟΥΣ - romans
+  ΠΡΟΣ ΚΟΡΙΝΘΙΟΥΣ Α - 1corinthians
+  ΠΡΟΣ ΚΟΡΙΝΘΙΟΥΣ Β - 2corinthians
+  ΠΡΟΣ ΓΑΛΑΤΑΣ - galatians
+  ΠΡΟΣ ΕΦΕΣΙΟΥΣ - ephesians
+  ΠΡΟΣ ΦΙΛΙΠΠΗΣΙΟΥΣ - philippians
+  ΠΡΟΣ ΚΟΛΟΣΣΑΕΙΣ - colossians
+  ΠΡΟΣ ΘΕΣΣΑΛΟΝΙΚΕΙΣ Α - 1thessalonians
+  ΠΡΟΣ ΘΕΣΣΑΛΟΝΙΚΕΙΣ Β - 2thessalonians
+  ΠΡΟΣ ΤΙΜΟΘΕΟΝ Α - 1timothy
+  ΠΡΟΣ ΤΙΜΟΘΕΟΝ Β - 2timothy
+  ΠΡΟΣ ΤΙΤΟΝ - titus
+  ΠΡΟΣ ΦΙΛΗΜΟΝΑ - philemon
+  ΠΡΟΣ ΕΒΡΑΙΟΥΣ - hebrews
+  ΙΑΚΩΒΟΥ ΕΠΙΣΤΟΛΗ - james
+  ΠΕΤΡΟΥ Α - 1peter
+  ΠΕΤΡΟΥ Β - 2peter
+  ΙΩΑΝΟΥ Α - 1john
+  ΙΩΑΝΟΥ Β - 2john
+  ΙΩΑΝΟΥ Γ - 3john
+  ΙΟΥΔΑ - jude
+  ΑΠΟΚΑΛΥΨΙΣ ΙΩΑΝΟΥ - revelation
 
 
 
